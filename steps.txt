@@ -1,0 +1,100 @@
+https://tutorial.djangogirls.org/
+
+1. below steps are for installing new home folder(C:\djangogirls), Virtual environment (myvenv), active Virtual environment, pip, Django
+	 go to  C:\>   [cd\]
+2. mkdir djangogirls
+   cd djangogirls
+3. C:\djangogirls> python -m venv myvenv
+4. active Virtual environment:
+	C:\djangogirls> myvenv\Scripts\activate
+5. (myvenv) PS C:\djangogirls> python -m pip install --upgrade pip
+6.  create a requirements.txt file inside of the djangogirls/ folder, with text in the file:  (will be updated to lastest version automatically)
+	Django~=2.2.4
+7. C:\djangogirls> python -m pip install -r requirements.txt
+
+8. below steps are for creating a new project (mysite):
+	(myvenv) C:\djangogirls> django-admin.exe startproject mysite .    (<-- be careful with this dot at the end)
+9. make changes at mysite/settings.py:
+	TIME_ZONE = 'America/Toronto'  #'UTC'
+	STATIC_URL = '/static/'
+	STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+	ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']  # []
+10. To create a database for our project: 
+	(myvenv) C:\djangogirls> python manage.py migrate
+11. Starting the web server: (After this, browser should can run at http://127.0.0.1:8000/)
+	(myvenv) C:\djangogirls> python manage.py runserver
+12. while the command line window is open, web server is on. To type additional commands while the web server is running, open a new  command line window and activate your virtualenv...
+
+###### creating application blog ##########
+13. Creating an application (blog):   (myvenv) C:\djangogirls> python manage.py startapp blog
+14. After creating an application, we also need to tell Django that it should use it. We do that in the file mysite/settings.py -- open it in your code editor. We need to find INSTALLED_APPS and add a line containing 'blog.apps.BlogConfig', just above ]
+	INSTALLED_APPS = [
+	    'django.contrib.admin',
+	    'django.contrib.auth',
+	    'django.contrib.contenttypes',
+	    'django.contrib.sessions',
+	    'django.contrib.messages',
+	    'django.contrib.staticfiles',
+	    'blog.apps.BlogConfig',
+	]
+15. 
+
+
+
+
+
+
+============
+Run at your local machine:
+
+ C:\djangogirls> myvenv\Scripts\activate
+(myvenv) PS C:\djangogirls> python manage.py runserver
+
+================================
+deploy new repository from you local to Git:
+  open GitBash, go to your /c/cd, 
+	$ git status c
+	$ git add --all  .
+	$ git commit -m "My Django xxx"
+	$ git remote add origin https://github.com/<your-github-username>/my-first-blog.git
+	$ git push -u origin master
+  //Your code is now on GitHub
+	
+==========================================
+At PythonAnywhere command-line:
+1. Create new API token at your account
+2. $ pip3.6 install --user pythonanywhere
+3. run the helper to automatically configure our app from GitHub:
+	$ pa_autoconfigure_django.py --python=3.6 https://github.com/<your-github-username>/my-first-blog.git
+4. initialize the admin account: 
+	(sunnylee8.pythonanywhere.com) $ python manage.py createsuperuser
+
+//you need to map static path at the web tag section at pythoneverywhere:  the values for its URL and path settings (eg: URL /static/ maps to path: home/sunnylee8/sunnylee8.pythonanywhere.com/blog/static)
+
+=========================================
+Make changes from your local files to Git & pythonanywhere:
+
+a. Make changes at your local files.
+
+b. deploy existing repository from you local to Git: (push from local up to Git)	
+	open commend-line or GitBash, go to your c:/djangogirls,
+	$ git status 
+	$ git add --all  .
+	$ git commit -m "My Django xxx"	
+	$ git push
+c. pull code down from Git to pythonanywhere: (https://www.pythonanywhere.com/forums/topic/12593/#id_post_52623)
+	at pythonanywhere console: 
+	$ cd ~/sunnylee8.pythonanywhere.com
+	$ git reset --hard             [- optional, use incase error shows up. Will overwrite the existing files in pythonanywhere from Git]
+	$ git pull
+
+	xxx$ git clone https://github.com/sunnylee8/sunny-blog.git
+
+##############
+in my local, it's C:\djangogirls\blog\static\css, but in pythoneverywhere, you need to put static under /home/sunnylee8/sunnylee8.pythonanywhere.com/static/css/
+
+To avoid above, you need to map it at the web tag section at pythoneverywhere:  the values for its URL and path settings (eg: URL /static/ maps to path: home/sunnylee8/sunnylee8.pythonanywhere.com/blog/static)
+############
+
+reinstall:
+pa_autoconfigure_django.py --nuke  https://github.com/sunnylee8/sunny-blog.git
