@@ -79,7 +79,7 @@ a. Make changes at your local files.
 b. deploy existing repository from you local to Git: (push from local up to Git)	
 	open commend-line or GitBash, go to your c:/djangogirls,
 	$ git status 
-	$ git add --all  .
+	$ git add --all  .    [<- don't miss the . at the last]
 	$ git commit -m "My Django xxx"	
 	$ git push
 c. pull code down from Git to pythonanywhere: (https://www.pythonanywhere.com/forums/topic/12593/#id_post_52623)
@@ -87,6 +87,9 @@ c. pull code down from Git to pythonanywhere: (https://www.pythonanywhere.com/fo
 	$ cd ~/sunnylee8.pythonanywhere.com
 	$ git reset --hard             [- optional, use incase error shows up. Will overwrite the existing files in pythonanywhere from Git]
 	$ git pull
+d. Updating the static files on the server (from Git to pythonanywhere):
+	$ workon sunnylee8.pythonanywhere.com    [<- activating your virtualenv just like myenv/bin/activate]
+	$ python manage.py collectstatic
 
 	xxx$ git clone https://github.com/sunnylee8/sunny-blog.git
 
